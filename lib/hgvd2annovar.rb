@@ -73,7 +73,7 @@ if __FILE__ == $0
   ARGV.options do |o|
     o.banner = "ruby #$0 [options] [HGVD.tab]"
     o.separator "Options:"
-    o.on("-a", "-all", "use all variants including non-PASS") {|x| opts[:all] = true}
+    o.on("-a", "--all", "use all variants including non-PASS") {|x| opts[:all] = true}
     o.parse!
   end
   Hgvd2Annovar.new.run(opts)

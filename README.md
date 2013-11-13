@@ -1,24 +1,18 @@
 # Hgvd2annovar
 
-TODO: Write a gem description
+Convert 'DVexsome*.tab' file of the Human Genomic Variation Database <http:www.genome.med.kyoto-u.ac.jp/SnpDB/> into 'generic DB file' of the ANNOVAR software package <http://www.openbioinfomatics.org/annovar/>.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'hgvd2annovar'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install hgvd2annovar
+Just copy `hgvd2annovar.rb` to your working directory. Ruby version 2.0 or 1.9 are recommended. 
 
 ## Usage
 
-TODO: Write usage instructions here
+`ruby hgvd2annovar.rb DBexome20131010.tab > DBexome20131010.tab.txt`
+
+You can also use an option `-a` or `--all`. With these options, output will include non-PASS variants in the filter column.
+
+The output file can be used from ANNOVAR's `annotate_variation.pl` with options `--dbtype generic --genericdbfile DBexome20131010.tab.txt`.
 
 ## Contributing
 
@@ -27,3 +21,8 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+or just contact to the author by email.
+
+## License
+Licensed under the MIT lisence. Copyright MISHIMA, Hiroyuki, 2013 (hmishima (at) nagasaki-u.ac.jp)
