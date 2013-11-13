@@ -51,6 +51,13 @@ class Hgvd2Annovar
       results << "#{Integer(judged[:pos]) + judged[:ref].size - 1}"
       results << judged[:ref]
       results << judged[:alt]
+    else
+      $stderr.puts "skipped record: #{hgvd}"
+    end
+    if hgvd[:na].nil? 
+      $stderr.puts "NA is not given: #{hgvd}"
+      hgvd[:nr] = 1
+      hgvd[:na] = 0
     end
     results << "%.6f" % (Float(hgvd[:na]) / (Integer(hgvd[:nr]) + Integer(hgvd[:na]))) # AAF
     puts results.join("\t")
@@ -61,7 +68,11 @@ class Hgvd2Annovar
       fin.each_line do |row|
         row.chomp!
         # next if row.start_with? '#'
-        process(HGVD.new(*(row.split("\t"))))
+        hgvd = HGVD.new(*(row.split("\t")))
+        unless opts[:all]
+          next unless /PASS/ =~ hgvd[:filter]
+        end
+        process(hgvd)
       end
     end
   end
