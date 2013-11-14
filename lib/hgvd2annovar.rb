@@ -2,7 +2,7 @@ require "optparse"
 
 class Hgvd2Annovar
 
-  VERSION = "0.0.1"
+  VERSION = "0.1.0"
 
   HGVD =
     Struct.new( :chr, :position, :rsID_freq,
@@ -12,21 +12,21 @@ class Hgvd2Annovar
   def judge_types(hgvd)
     # finding left-mached strings: http://d.hatena.ne.jp/takuya_1st/20110909/1315595245
     left_match_size =
-      hgvd[:ref].split(//).zip(hgvd[:alt].split(//)).select{|e|e.uniq.size == 1}.map{|e|e[0]}.join.size
+      hgvd.ref.split(//).zip(hgvd.alt.split(//)).select{|e|e.uniq.size == 1}.map{|e|e[0]}.join.size
     judged = Hash.new
     judged[:pos] = "#{Integer(hgvd[:position]) + left_match_size}"
-    ref2 = hgvd[:ref][left_match_size .. -1]
+    ref2 = hgvd.ref[left_match_size .. -1]
     judged[:ref] = (ref2.empty? ? "-" : ref2)
-    alt2 = hgvd[:alt][left_match_size .. -1]
+    alt2 = hgvd.alt[left_match_size .. -1]
     judged[:alt] = (alt2.empty? ? "-" : alt2)
     judged
   end
 
   def process(hgvd)
-    hgvd[:alt].split(',').each_with_index do |alt,idx|
+    hgvd.alt.split(',').each_with_index do |alt,idx|
       hgvd2 = hgvd.dup
-      hgvd2[:alt] = alt
-      hgvd2[:na] = hgvd[:na].split(',')[idx]
+      hgvd2.alt = alt
+      hgvd2.na = hgvd.na.split(',')[idx]
       process_alt(hgvd2)
     end
   end
@@ -34,7 +34,7 @@ class Hgvd2Annovar
   def process_alt(hgvd)
     judged = judge_types(hgvd)
     results = Array.new
-    results << hgvd[:chr].sub(/\Achr/,'').sub(/\AM/,'MT') # chrom
+    results << hgvd.chr.sub(/\Achr/,'').sub(/\AM/,'MT') # chrom
     case 
     when ((judged[:ref] != "-") && (judged[:alt] != "-")) # SNV (MNP is not supported)
       results << judged[:pos]
@@ -54,12 +54,12 @@ class Hgvd2Annovar
     else
       $stderr.puts "skipped record: #{hgvd}"
     end
-    if hgvd[:na].nil? 
+    if hgvd.na.nil? 
       $stderr.puts "NA is not given: #{hgvd}"
-      hgvd[:nr] = 1
-      hgvd[:na] = 0
+      hgvd.nr = 1
+      hgvd.na = 0
     end
-    results << "%.6f" % (Float(hgvd[:na]) / (Integer(hgvd[:nr]) + Integer(hgvd[:na]))) # AAF
+    results << "%.6f" % (Float(hgvd.na) / (Integer(hgvd.nr) + Integer(hgvd.na))) # AAF
     puts results.join("\t")
   end
 
@@ -70,7 +70,7 @@ class Hgvd2Annovar
         # next if row.start_with? '#'
         hgvd = HGVD.new(*(row.split("\t")))
         unless opts[:all]
-          next unless /PASS/ =~ hgvd[:filter]
+          next unless /PASS/ =~ hgvd.filter
         end
         process(hgvd)
       end
