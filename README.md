@@ -1,6 +1,6 @@
 # Hgvd2annovar
 
-Convert 'DVexsome*.tab' file of the Human Genomic Variation Database <http:www.genome.med.kyoto-u.ac.jp/SnpDB/> into 'generic DB file' of the ANNOVAR software package <http://www.openbioinfomatics.org/annovar/>.
+Convert 'DBexsome*.tab' file of the Human Genomic Variation Database <http:www.genome.med.kyoto-u.ac.jp/SnpDB/> into 'generic DB file' of the ANNOVAR software package <http://www.openbioinfomatics.org/annovar/>.
 
 ## Installation
 
@@ -22,7 +22,12 @@ The output file can be used from ANNOVAR's `annotate_variation.pl` with options 
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-or just contact to the author by email.
+or just contact to the author via email or GitHub. 
 
-## License
-Licensed under the MIT lisence. Copyright MISHIMA, Hiroyuki, 2013 (hmishima (at) nagasaki-u.ac.jp)
+## Warning
+In gene-hunting projects, a mistake in variant filtering may cause a disaster. Please recheck results from this script by yourself. 
+
+## Copyright
+**Copyright**: &copy; MISHIMA, Hiroyuki, 2013 (hmishima (at) nagasaki-u.ac.jp)
+**License**: The MIT lisence. See LISENSE.txt for details.
+
