@@ -25,9 +25,10 @@ The output file can be used from ANNOVAR's `annotate_variation.pl` with options 
 or just contact to the author via email or GitHub. 
 
 ## Warning
-In gene-hunting projects, a mistake in variant filtering may cause a disaster. Please recheck results from this script by yourself. 
+In gene-hunting projects, a mistake in variant filtering may cause a **disaster**. Please recheck results from this script by yourself. 
 
 ## Copyright
 **Copyright**: &copy; MISHIMA, Hiroyuki, 2013 (hmishima (at) nagasaki-u.ac.jp)
+
 **License**: The MIT lisence. See LISENSE.txt for details.
 
