@@ -30,5 +30,5 @@ In gene-hunting projects, a mistake in variant filtering may cause a **disaster*
 ## Copyright
 **Copyright**: &copy; MISHIMA, Hiroyuki, 2013 (hmishima (at) nagasaki-u.ac.jp)
 
-**License**: The MIT lisence. See LISENSE.txt for details.
+**License**: The MIT lisence. See LICENSE.txt for details.
 
