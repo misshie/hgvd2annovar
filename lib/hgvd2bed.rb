@@ -37,7 +37,7 @@ class Hgvd2Bed
     #results << hgvd.chr.sub(/\Achr/,'').sub(/\AM/,'MT') # chrom < for ANNOVAR
     case 
     when ((judged[:ref] != "-") && (judged[:alt] != "-")) # SNV (MNP is not supported)
-      results << "#{Integer(judged[:pos] - 1}" # Zero-based half-closed 
+      results << "#{Integer(judged[:pos] - 1)}" # Zero-based half-closed 
       results << judged[:pos]                  # Zero-based half-closed
       #results << judged[:ref]
       #results << judged[:alt]
@@ -47,7 +47,7 @@ class Hgvd2Bed
       #results << judged[:ref]
       #results << judged[:alt]
     when (judged[:alt] == "-") # deletion
-      results << "#{Integer(judged[:pos] - 1}"                      # Zero-based half-closed 
+      results << "#{Integer(judged[:pos] - 1)}"                      # Zero-based half-closed 
       results << "#{Integer(judged[:pos]) + judged[:ref].size - 1}" # Zero-based half-closed
       #results << judged[:ref]
       #results << judged[:alt]
