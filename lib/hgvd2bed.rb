@@ -34,11 +34,11 @@ class Hgvd2Bed
   def process_alt(hgvd)
     judged = judge_types(hgvd)
     results = Array.new
-    #results << hgvd.chr.sub(/\Achr/,'').sub(/\AM/,'MT') # chrom < for ANNOVAR
+    results << hgvd.chr
     case 
     when ((judged[:ref] != "-") && (judged[:alt] != "-")) # SNV (MNP is not supported)
-      results << "#{Integer(judged[:pos] - 1)}" # Zero-based half-closed 
-      results << judged[:pos]                  # Zero-based half-closed
+      results << "#{Integer(judged[:pos]) - 1}" # Zero-based half-closed 
+      results << judged[:pos]                   # Zero-based half-closed
       #results << judged[:ref]
       #results << judged[:alt]
     when (judged[:ref] == "-") # insertion
@@ -47,8 +47,8 @@ class Hgvd2Bed
       #results << judged[:ref]
       #results << judged[:alt]
     when (judged[:alt] == "-") # deletion
-      results << "#{Integer(judged[:pos] - 1)}"                      # Zero-based half-closed 
-      results << "#{Integer(judged[:pos]) + judged[:ref].size - 1}" # Zero-based half-closed
+      results << "#{Integer(judged[:pos]) - 1}"                      # Zero-based half-closed 
+      results << "#{Integer(judged[:pos]) + judged[:ref].size - 1}"  # Zero-based half-closed
       #results << judged[:ref]
       #results << judged[:alt]
     else
