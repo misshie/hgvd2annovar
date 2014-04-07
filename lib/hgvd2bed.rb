@@ -1,6 +1,6 @@
 require "optparse"
 
-class Hgvd2Annovar
+class Hgvd2Bed
 
   VERSION = "0.1.0"
 
@@ -34,23 +34,23 @@ class Hgvd2Annovar
   def process_alt(hgvd)
     judged = judge_types(hgvd)
     results = Array.new
-    results << hgvd.chr.sub(/\Achr/,'').sub(/\AM/,'MT') # chrom
+    #results << hgvd.chr.sub(/\Achr/,'').sub(/\AM/,'MT') # chrom < for ANNOVAR
     case 
     when ((judged[:ref] != "-") && (judged[:alt] != "-")) # SNV (MNP is not supported)
-      results << judged[:pos]
-      results << judged[:pos]
-      results << judged[:ref]
-      results << judged[:alt]
+      results << "#{Integer(judged[:pos] - 1}" # Zero-based half-closed 
+      results << judged[:pos]                  # Zero-based half-closed
+      #results << judged[:ref]
+      #results << judged[:alt]
     when (judged[:ref] == "-") # insertion
-      results << "#{Integer(judged[:pos]) - 1}" 
-      results << "#{Integer(judged[:pos]) - 1}" 
-      results << judged[:ref]
-      results << judged[:alt]
+      results << "#{Integer(judged[:pos]) - 2}" # Zero-based half-closed 
+      results << "#{Integer(judged[:pos]) - 1}" # Zero-based half-closed
+      #results << judged[:ref]
+      #results << judged[:alt]
     when (judged[:alt] == "-") # deletion
-      results << judged[:pos]
-      results << "#{Integer(judged[:pos]) + judged[:ref].size - 1}"
-      results << judged[:ref]
-      results << judged[:alt]
+      results << "#{Integer(judged[:pos] - 1}"                      # Zero-based half-closed 
+      results << "#{Integer(judged[:pos]) + judged[:ref].size - 1}" # Zero-based half-closed
+      #results << judged[:ref]
+      #results << judged[:alt]
     else
       $stderr.puts "skipped record: #{hgvd}"
     end
@@ -87,5 +87,5 @@ if __FILE__ == $0
     o.on("-a", "--all", "use all variants including non-PASS") {|x| opts[:all] = true}
     o.parse!
   end
-  Hgvd2Annovar.new.run(opts)
+  Hgvd2Bed.new.run(opts)
 end
