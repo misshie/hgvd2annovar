@@ -1,14 +1,15 @@
-# Hgvd2annovar
+# Hgvd2annovar / Hgvd2BED (alpha)
 
-Convert 'DBexome*.tab' file of the Human Genomic Variation Database <http:www.genome.med.kyoto-u.ac.jp/SnpDB/> into 'generic DB file' of the ANNOVAR software package <http://www.openbioinfomatics.org/annovar/>.
+Convert 'DBexome*.tab' file of the Human Genomic Variation Database <http:www.genome.med.kyoto-u.ac.jp/SnpDB/> into 'generic DB file' of the ANNOVAR software package <http://www.openbioinfomatics.org/annovar/> . Hgvd2BED generates a 4-column BED file. CAUTION: Hgvd2BED is under development. DO NOT USE UNTIL FORMAL RELEASE.
 
 ## Installation
 
-Just copy `hgvd2annovar.rb` to your working directory. Ruby version 2.0 or 1.9 are recommended. 
+Just copy `hgvd2annovar.rb` or `hgvd2bed` to your working directory. Ruby version 2.0 or 1.9 are recommended. 
 
 ## Usage
 
 `ruby hgvd2annovar.rb DBexome20131010.tab > DBexome20131010.tab.txt`
+`ruby hgvd2bed.rb DBexome20131010.tab > DBexome20131010.bed`
 
 You can also use an option `-a` or `--all`. With these options, output will include non-PASS variants in the filter column.
 
@@ -28,7 +29,7 @@ or just contact to the author via email or GitHub.
 In gene-hunting projects, a mistake in variant filtering may cause a **disaster**. Please recheck results from this script by yourself. 
 
 ## Copyright
-**Copyright**: &copy; MISHIMA, Hiroyuki, 2013 (hmishima (at) nagasaki-u.ac.jp)
+**Copyright**: &copy; MISHIMA, Hiroyuki, 2013-2014 (hmishima (at) nagasaki-u.ac.jp)
 
 **License**: The MIT license. See LICENSE.txt for details.
 
