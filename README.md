@@ -9,6 +9,7 @@ Just copy `lib/hgvd2annovar.rb` or `lib/hgvd2bed.rb` to your working directory. 
 ## Usage
 
 `ruby hgvd2annovar.rb DBexome20131010.tab > DBexome20131010.tab.txt`
+
 `ruby hgvd2bed.rb DBexome20131010.tab > DBexome20131010.tab.bed`
 
 You can also use an option `-a` or `--all`. With these options, output will include non-PASS variants in the filter column.
