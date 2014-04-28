@@ -1,4 +1,4 @@
-Copyright (c) 2013 MISHIMA, Hiroyuki
+Copyright (c) 2013-2014, MISHIMA, Hiroyuki
 
 MIT License
 
