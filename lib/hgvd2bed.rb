@@ -42,7 +42,7 @@ class Hgvd2Bed
       #results << judged[:ref]
       #results << judged[:alt]
     when (judged[:ref] == "-") # insertion
-      results << "#{Integer(judged[:pos]) - 2}" # Zero-based half-closed 
+      results << "#{Integer(judged[:pos]) - 1}" # Zero-based half-closed 
       results << "#{Integer(judged[:pos]) - 1}" # Zero-based half-closed
       #results << judged[:ref]
       #results << judged[:alt]
