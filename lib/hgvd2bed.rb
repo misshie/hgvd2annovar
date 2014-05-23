@@ -59,7 +59,8 @@ class Hgvd2Bed
       hgvd.nr = 1
       hgvd.na = 0
     end
-    results << "%.6f" % (Float(hgvd.na) / (Integer(hgvd.nr) + Integer(hgvd.na))) # AAF
+    results <<
+      "#{hgvd.ref}>#{hgvd.alt}:%.6f" % (Float(hgvd.na) / (Integer(hgvd.nr) + Integer(hgvd.na))) # AAF
     puts results.join("\t")
   end
 

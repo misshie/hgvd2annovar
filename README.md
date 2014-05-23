@@ -1,6 +1,6 @@
 # Hgvd2annovar / Hgvd2BED (beta)
 
-Convert 'DBexome*.tab' file of the Human Genomic Variation Database <http:www.genome.med.kyoto-u.ac.jp/SnpDB/> into 'generic DB file' of the ANNOVAR software package <http://www.openbioinfomatics.org/annovar/> . Hgvd2BED generates a 4-column BED file. CAUTION: Hgvd2BED is under development.
+Convert 'DBexome*.tab' file of the Human Genomic Variation Database <http:www.genome.med.kyoto-u.ac.jp/SnpDB/> into 'generic DB file' of the ANNOVAR software package <http://www.openbioinfomatics.org/annovar/> . Hgvd2BED generates the 4-column BED file. CAUTION: Hgvd2BED is under development.
 
 ## Installation
 
