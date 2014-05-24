@@ -2,8 +2,7 @@ require "optparse"
 
 class Hgvd2Bed
 
-  VERSION = "0.1.0"
-
+  VERSION = "0.1.5"
   HGVD =
     Struct.new( :chr, :position, :rsID_freq,
                 :ref, :alt, :num_sample, :filter,
@@ -22,6 +21,9 @@ class Hgvd2Bed
     judged
   end
 
+  # ALT can be multiple alleles.
+  # To process the case that ALT consists of SNV and/or INDEL,
+  # multiple alleles should be processed independently 
   def process(hgvd)
     hgvd.alt.split(',').each_with_index do |alt,idx|
       hgvd2 = hgvd.dup
@@ -31,37 +33,36 @@ class Hgvd2Bed
     end
   end
 
+  def bedhash
+    @bedhash ||= Hash.new
+  end
+
   def process_alt(hgvd)
     judged = judge_types(hgvd)
-    results = Array.new
-    results << hgvd.chr
+
     case 
     when ((judged[:ref] != "-") && (judged[:alt] != "-")) # SNV (MNP is not supported)
-      results << "#{Integer(judged[:pos]) - 1}" # Zero-based half-closed 
-      results << judged[:pos]                   # Zero-based half-closed
-      #results << judged[:ref]
-      #results << judged[:alt]
+      pos_s = "#{Integer(judged[:pos]) - 1}" # Zero-based half-closed 
+      pos_e = judged[:pos]                   # Zero-based half-closed
     when (judged[:ref] == "-") # insertion
-      results << "#{Integer(judged[:pos]) - 1}" # Zero-based half-closed 
-      results << "#{Integer(judged[:pos]) - 1}" # Zero-based half-closed
-      #results << judged[:ref]
-      #results << judged[:alt]
+      pos_s = "#{Integer(judged[:pos]) - 1}" # Zero-based half-closed 
+      pos_e =  "#{Integer(judged[:pos]) - 1}" # Zero-based half-closed
     when (judged[:alt] == "-") # deletion
-      results << "#{Integer(judged[:pos]) - 1}"                      # Zero-based half-closed 
-      results << "#{Integer(judged[:pos]) + judged[:ref].size - 1}"  # Zero-based half-closed
-      #results << judged[:ref]
-      #results << judged[:alt]
+      pos_s = "#{Integer(judged[:pos]) - 1}"                      # Zero-based half-closed 
+      pos_e = "#{Integer(judged[:pos]) + judged[:ref].size - 1}"  # Zero-based half-closed
     else
       $stderr.puts "skipped record: #{hgvd}"
+      return
     end
     if hgvd.na.nil? 
-      $stderr.puts "NA is not given: #{hgvd}"
+      $stderr.puts "NA is not given (AAFeq=0): #{hgvd}"
       hgvd.nr = 1
       hgvd.na = 0
     end
-    results <<
-      "#{hgvd.ref}>#{hgvd.alt}:%.6f" % (Float(hgvd.na) / (Integer(hgvd.nr) + Integer(hgvd.na))) # AAF
-    puts results.join("\t")
+
+    bedhash["#{hgvd.chr}\t#{pos_s}\t#{pos_e}"] ||= Array.new
+    bedhash["#{hgvd.chr}\t#{pos_s}\t#{pos_e}"] << 
+      "#{hgvd.ref}>#{hgvd.alt}:%.5f" % (Float(hgvd.na) / (Integer(hgvd.nr) + Integer(hgvd.na))) # AAF
   end
 
   def run(opts)
@@ -76,6 +77,7 @@ class Hgvd2Bed
         process(hgvd)
       end
     end
+    bedhash.each{|k,v| puts "#{k}\t#{v.join(",")}"}
   end
 
 end # class
