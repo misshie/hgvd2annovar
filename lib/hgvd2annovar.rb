@@ -2,7 +2,7 @@ require "optparse"
 
 class Hgvd2Annovar
 
-  VERSION = "0.1.0"
+  VERSION = "0.1.7"
 
   HGVD =
     Struct.new( :chr, :position, :rsID_freq,

@@ -2,7 +2,7 @@ require "optparse"
 
 class Hgvd2Bed
 
-  VERSION = "0.1.5"
+  VERSION = "0.1.7"
   HGVD =
     Struct.new( :chr, :position, :rsID_freq,
                 :ref, :alt, :num_sample, :filter,
