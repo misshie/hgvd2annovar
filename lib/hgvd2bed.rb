@@ -29,8 +29,8 @@ class Hgvd2Bed
     hgvd.alt.split(',').each_with_index do |alt,idx|
       hgvd2 = hgvd.dup
       hgvd2.alt = alt
-      hgvd2.nr = (Integer(hgvd.nr) + na_sum - Integer(hgvd.na)).to_s 
-      hgvd2.na = hgvd.na.split(',')[idx]
+      hgvd2.na = hgvd.na.split(',')[idx] 
+      hgvd2.nr = (Integer(hgvd.nr) + na_sum - Integer(hgvd2.na)).to_s 
       process_alt(hgvd2)
     end
   end
