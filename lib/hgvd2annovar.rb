@@ -22,10 +22,15 @@ class Hgvd2Annovar
     judged
   end
 
+  # ALT can be multiple alleles.
+  # To process the case that ALT consists of SNV and/or INDEL,
+  # multiple alleles should be processed independently 
   def process(hgvd)
+    na_sum = hgvd.na.split(',').map{|x|Integer(x)}.inject(:+)
     hgvd.alt.split(',').each_with_index do |alt,idx|
       hgvd2 = hgvd.dup
       hgvd2.alt = alt
+      hgvd2.nr = (Integer(hgdv.nr) + na_sum - Interger(hgvd.na)).to_s 
       hgvd2.na = hgvd.na.split(',')[idx]
       process_alt(hgvd2)
     end
