@@ -30,7 +30,7 @@ class Hgvd2Annovar
     hgvd.alt.split(',').each_with_index do |alt,idx|
       hgvd2 = hgvd.dup
       hgvd2.alt = alt
-      hgvd2.nr = (Integer(hgvd.nr) + na_sum - Interger(hgvd.na)).to_s 
+      hgvd2.nr = (Integer(hgvd.nr) + na_sum - Integer(hgvd.na)).to_s 
       hgvd2.na = hgvd.na.split(',')[idx]
       process_alt(hgvd2)
     end
