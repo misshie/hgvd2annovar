@@ -1,6 +1,6 @@
 # Hgvd2annovar / Hgvd2BED (v 0.1.7)
 
-Convert 'DBexome*.tab' file of the Human Genomic Variation Database <http:www.genome.med.kyoto-u.ac.jp/SnpDB/> into 'generic DB file' of the ANNOVAR software package <http://www.openbioinfomatics.org/annovar/> . Hgvd2BED generates the 4-column BED file. CAUTION: Hgvd2BED is under development.
+Convert 'DBexome*.tab' file of the Human Genomic Variation Database <http:www.genome.med.kyoto-u.ac.jp/SnpDB/> into 'generic DB file' of the ANNOVAR software package <http://www.openbioinfomatics.org/annovar/> . Hgvd2BED generates the 4-column BED file.
 
 ## ChangeLog
 
@@ -21,7 +21,7 @@ You can also use an option `-a` or `--all`. With these options, output will incl
 The output file can be used from ANNOVAR's `annotate_variation.pl` with options `--dbtype generic --genericdbfile DBexome20131010.tab.txt`.
 
 ## Warning
-In gene-hunting projects, a mistake in variant filtering may cause a **disaster**. Please recheck results from this script by yourself. 
+In gene-hunting projects, a mistake in variant filtering may cause a **disaster**. Please recheck results from this script by yourself. The author gratefully welcome your bug reports.
 
 ## Copyright
 **Copyright**: &copy; MISHIMA, Hiroyuki, 2013-2014 (hmishima (at) nagasaki-u.ac.jp)
