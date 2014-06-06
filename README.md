@@ -10,6 +10,8 @@ Convert 'DBexome*.tab' file of the Human Genomic Variation Database <http:www.ge
 
 Just copy `lib/hgvd2annovar.rb` or `lib/hgvd2bed.rb` to your working directory. Ruby versions 1.9 or later are recommended. 
 
+For your convenience, converted datasets are available in the `public_data` directory.
+
 ## Usage
 
 `ruby hgvd2annovar.rb DBexome20131010.tab > DBexome20131010.tab.txt`
