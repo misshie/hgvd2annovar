@@ -6,7 +6,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 Gem::Specification.new do |spec|
   spec.name          = "hgvd2annovar"
   spec.version       = Hgvd2annovar::VERSION
-  spec.authors       = ["Hiroyuki Mishima"]
+  spec.authors       = ["MISHIMA Hiroyuki"]
   spec.email         = ["missy@be.to"]
   spec.description   = %q{Convert a HGVD table file into ANNOVAR input file}
   spec.summary       = %q{Convert a HGVD table file into ANNOVAR input file}

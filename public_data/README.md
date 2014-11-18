@@ -8,6 +8,8 @@
 * `DBexome20131010b.tab.20140603.bed`: converted BED file
 * `DBexome20131010b.tab.20140603.txt`: converted ANNOVAR table
 
+The -a (nor --all) option was NOT used to convert.  
+
 ## Original dataset information
 * Original dataset is available at http://www.genome.med.kyoto-u.ac.jp/SnpDB/
 * See also details of puclic data release policy at http://www.genome.med.kyoto-u.ac.jp/SnpDB/about.html

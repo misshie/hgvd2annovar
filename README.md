@@ -1,8 +1,9 @@
-# Hgvd2annovar / Hgvd2BED (v 0.1.7)
+# Hgvd2annovar / Hgvd2BED (v 0.1.8)
 
 Convert 'DBexome*.tab' file of the Human Genomic Variation Database <http:www.genome.med.kyoto-u.ac.jp/SnpDB/> into 'generic DB file' of the ANNOVAR software package <http://www.openbioinfomatics.org/annovar/> . Hgvd2BED generates the 4-column BED file.
 
 ## ChangeLog
+* **UPDATE** Supports release version 1.42 (2014.06.17). This release contains new three columns (RR/RA/AA).
 
 * **BUG-FIX** (Both Hgvd2annovar and Hgvd2BEDv 0.1.7) For example, in non-biallelic sites, allele frequency of the 2nd alternative allele should have been calculated by "(NA2) / (NR+NA1+NA2+NA3)". However, older version calculated by "(NA2) / (NR+NA2)". This bug overestimated allele frequencies in non-biallelic sites.
 
