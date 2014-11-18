@@ -74,7 +74,7 @@ class Hgvd2Bed
         # next if row.start_with? '#'
         hgvd = HGVD.new(*(row.split("\t")))
         unless opts[:all]
-          next unless /PASS/ =~ hgvd.filter
+          next unless /PASS|\./ =~ hgvd.filter
         end
         process(hgvd)
       end
