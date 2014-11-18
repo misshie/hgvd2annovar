@@ -2,8 +2,11 @@
 
 ## Converted files
 
+* `DBexome20131010r1.42.tab.bed`: converted BED file from release version 1.42 (06/17/2014)
+* `DBexome20131010r1.42.tab.txt`: converted ANNOVAR table from release version 1.42 (06/17/2014)
+
 * `DBexome20131010b.tab.20140603.bed`: converted BED file
-* `DBexome20131010b.tab.20140603.bed`: converted ANNOVAR table
+* `DBexome20131010b.tab.20140603.txt`: converted ANNOVAR table
 
 ## Original dataset information
 * Original dataset is available at http://www.genome.med.kyoto-u.ac.jp/SnpDB/
