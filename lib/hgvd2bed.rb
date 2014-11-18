@@ -2,11 +2,11 @@ require "optparse"
 
 class Hgvd2Bed
 
-  VERSION = "0.1.7"
+  VERSION = "0.1.8"
   HGVD =
     Struct.new( :chr, :position, :rsID_freq,
                 :ref, :alt, :num_sample, :filter,
-                :mean_depth, :sd_depth, :nr, :na, :gene )
+                :mean_depth, :sd_depth, :rr, :ra, :aa, :nr, :na, :gene )
 
   def judge_types(hgvd)
     # finding left-mached strings: http://d.hatena.ne.jp/takuya_1st/20110909/1315595245
