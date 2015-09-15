@@ -25,29 +25,35 @@ class Hgvd2Vcf
   VCF = Struct.new(:chrom, :pos, :id, :ref, :alt, :qual, :filter, :info, :format, :sample)
   VCF_HEADER = <<'EOF'
 ##fileformat=VCFv4.1
-##ALT=<ID=NON_REF,Description="Represents any possible alternative allele at this location">
 ##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
-##INFO=<ID=AAF,Number=1,Type=Float,Description="Alternative Allele Frequency NA/(NR+NA)">
+##INFO=<ID=AAF,Number=A,Type=Float,Description="Alternative Allele Frequency(s) NA/(NR+NAtotal)">
 ##INFO=<ID=NUM_SAMPLE,Number=1,Type=Integer,Description="Number of Samples")
 ##INFO=<ID=MEAN_DEPTH,Number=1,Type=Float,Description="Mean od sample read depth">
 ##INFO=<ID=SD_DEPTH,Number=1,Type=Float,Description="Standard deviation of sample read depth">
 ##INFO=<ID=RR,Number=1,Type=Integer,Description="number of Ref/Ref genotype">
 ##INFO=<ID=RA,Number=1,Type=Integer,Description="number of Ref/Alt genotype">
 ##INFO=<ID=AA,Number=1,Type=Integer,Description="number of Alt/Alt genotype">
-##INFO=<ID=NR,Number=1,Type=Integer,Description="number of referenc allele">
-##INFO=<ID=NA,Number=1,Type=Integer,Description="number of alternative allel">
+##INFO=<ID=NR,Number=1,Type=Integer,Description="number of reference allele">
+##INFO=<ID=NA,Number=A,Type=Integer,Description="number(s) of alternative allele(s)">
 ##INFO=<ID=GENE,Number=1,Type=String,Description="gene symbol">
 ##INFO=<ID=FILTER,Number=1,Type=String,Description="original filter infomation">
 ##INDO=<ID=RSFREQ,Number=1,Type=String,Description="original rs-id and known frequency information">
 EOF
-  VCF_COLS = %(# CHROM POS ID REF ALT QUAL FILTER INFO FORMAT HGVDv1_42).join("\t")
+  VCF_COLS = "#" + %w(CHROM POS ID REF ALT QUAL FILTER INFO FORMAT HGVDv1_42).join("\t")
   VCF_QUAL = "."
-  VCF_FILTER "."
+  VCF_FILTER = "."
   VCF_FORMAT = "GT"
+
+  def aaf(hgvd)
+    nas = hgvd.na.split(',')
+    all = Integer(hgvd.nr) + nas.map{|x|Integer(x)}.inject(:+)
+    aafs = nas.map{|na|format("%.6f", (Float(na) / all))}
+    "AAF=#{aafs.join(',')}"
+  end
 
   def info_field(hgvd)
     info = Array.new
-    info << format("AAF=%.6f", (Float(hgvd.na) / (Integer(hgvd.nr) + Integer(hgvd.na))))
+    info << aaf(hgvd)
     info << "NUM_SAMPLE=#{hgvd.num_sample}"
     info << "MEAN_DEPTH=#{hgvd.mean_depth}"
     info << "SD_DEPTH=#{hgvd.sd_depth}"
@@ -57,9 +63,9 @@ EOF
     info << "AA=#{hgvd.aa}"
     info << "NR=#{hgvd.nr}"
     info << "NA=#{hgvd.na}"
-    info << "GENE=#{hgvd.gene}"
-    info << "FILTER=#{hgvd.filter}"
-    info << "RSFREQ=#{hgvd.rsID_freq}"
+    info << "GENE=\"#{hgvd.gene}\""
+    info << "FILTER=\"#{hgvd.filter}\""
+    info << "RSFREQ=\"#{hgvd.rsID_freq}\"" unless hgvd.rsID_freq == "."
     info.join(";")
   end
 
@@ -68,11 +74,15 @@ EOF
     puts VCF_COLS
     ARGF.each_line do |row|
       next if row.start_with? '#'
-      hgvd = HGVD.new(row.chomp.split("\t")*)
-      vcf =vcf.new
+      hgvd = HGVD.new(*row.chomp.split("\t"))
+      vcf = VCF.new
       vcf.chrom  = hgvd.chr
       vcf.pos    = hgvd.position
-      vcf.id     = hgvd.rsID_freq.split(",").select{|x|x.start_with?('rs')}.join(",")
+      if hgvd.rsID_freq == "."
+        vcf.id = "."
+      else
+        vcf.id = hgvd.rsID_freq.split(",").select{|x|x.start_with?('rs')}.join(",")
+      end
       vcf.ref    = hgvd.ref
       vcf.alt    = hgvd.alt
       vcf.qual   = VCF_QUAL
