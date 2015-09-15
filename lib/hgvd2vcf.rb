@@ -37,7 +37,8 @@ class Hgvd2Vcf
 ##INFO=<ID=NA,Number=A,Type=Integer,Description="number(s) of alternative allele(s)">
 ##INFO=<ID=GENE,Number=1,Type=String,Description="gene symbol">
 ##INFO=<ID=FILTER,Number=1,Type=String,Description="original filter infomation">
-##INDO=<ID=RSFREQ,Number=1,Type=String,Description="original rs-id and known frequency information">
+##INFO=<ID=RSFREQ,Number=1,Type=String,Description="original rs-id and known frequency information">
+##reference=file:///dummy/hg19.fasta
 EOF
   VCF_COLS = "#" + %w(CHROM POS ID REF ALT QUAL FILTER INFO FORMAT HGVDv1_42).join("\t")
   VCF_QUAL = "."
