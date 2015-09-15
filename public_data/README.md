@@ -2,11 +2,12 @@
 
 ## Converted files
 
-* `DBexome20131010r1.42.tab.bed`: converted BED file from release version 1.42 (06/17/2014)
-* `DBexome20131010r1.42.tab.txt`: converted ANNOVAR table from release version 1.42 (06/17/2014)
+* `DBexome20131010r1.42.tab.bed`: a converted BED file from release version 1.42 (06/17/2014)
+* `DBexome20131010r1.42.tab.txt`: a converted ANNOVAR table from release version 1.42 (06/17/2014)
+* `DBexome20131010r1.42.tab.vcf`: a converted VCF file from release version 1.42 (06/17/2014)
 
-* `DBexome20131010b.tab.20140603.bed`: converted BED file
-* `DBexome20131010b.tab.20140603.txt`: converted ANNOVAR table
+* `DBexome20131010b.tab.20140603.bed`: a converted BED file
+* `DBexome20131010b.tab.20140603.txt`: a converted ANNOVAR table
 
 The -a (nor --all) option was NOT used to convert.  
 
