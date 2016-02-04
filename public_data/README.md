@@ -1,7 +1,7 @@
 # Converted HGVD dataset
 
 ## Tips
-To download each file directly from https://github.com/misshie/hgvd2annovar/tree/master/public_data , (left) click a finame, and (left) click "This file has been truncated, but you can [view the full file.]".
+To download each file directly from https://github.com/misshie/hgvd2annovar/tree/master/public_data , (left) click a filename, and (left) click "This file has been truncated, but you can [view the full file.]".
 
 ## Converted files
 
