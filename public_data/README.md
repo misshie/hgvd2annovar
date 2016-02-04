@@ -1,5 +1,8 @@
 # Converted HGVD dataset
 
+## Tips
+To download each file directly from https://github.com/misshie/hgvd2annovar/tree/master/public_data , (left) click a finame, and (left) click "This file has been truncated, but you can [view the full file.]".
+
 ## Converted files
 
 * `DBexome20131010r1.42.tab.bed`: a converted BED file from release version 1.42 (06/17/2014)
