@@ -80,7 +80,7 @@ EOF
       vcf.chrom  = hgvd.chr
       vcf.pos    = hgvd.position
       vcf.id = hgvd.rsID_freq.split(",").select{|x|x.start_with?('rs')}.join(",")
-      vcf.id = "." if hgvd.rsID_freq.empty?
+      vcf.id = "." if vcf.id.empty?
       vcf.ref    = hgvd.ref
       vcf.alt    = hgvd.alt
       vcf.qual   = VCF_QUAL
