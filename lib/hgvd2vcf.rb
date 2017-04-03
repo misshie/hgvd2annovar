@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 class Hgvd2Vcf
+  VERSION = "0.1.10"
+
   # ---------------------------------------------------------------------------------------------------------------------
   #   Chr | Position | rsID_freq | Ref | Alt | #Sample | Filter | Mean_depth | SD_depth | RR | RA | AA | NR | NA | Gene
   # ---------------------------------------------------------------------------------------------------------------------
@@ -40,14 +42,15 @@ class Hgvd2Vcf
 ##INFO=<ID=RSFREQ,Number=1,Type=String,Description="original rs-id and known frequency information">
 ##reference=file:///dummy/hg19.fasta
 EOF
-  VCF_COLS = "#" + %w(CHROM POS ID REF ALT QUAL FILTER INFO FORMAT HGVDv1_42).join("\t")
+  VCF_COLS = "#" + %w(CHROM POS ID REF ALT QUAL FILTER INFO FORMAT HGVD).join("\t")
   VCF_QUAL = "."
   VCF_FILTER = "."
   VCF_FORMAT = "GT"
 
   def aaf(hgvd)
     nas = hgvd.na.split(',')
-    all = Integer(hgvd.nr) + nas.map{|x|Integer(x)}.inject(:+)
+    # ignoring one of alternative allele counts not found in a multi-allelic site
+    all = Integer(hgvd.nr) + nas.map{|x|x.to_i}.inject(:+) 
     aafs = nas.map{|na|format("%.6f", (Float(na) / all))}
     "AAF=#{aafs.join(',')}"
   end

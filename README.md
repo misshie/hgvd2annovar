@@ -1,8 +1,9 @@
-# Hgvd2annovar / Hgvd2BED / Hgvd2VCF (v 0.1.9)
+# Hgvd2annovar / Hgvd2BED / Hgvd2VCF (v 0.1.10)
 
 Convert 'DBexome*.tab' file of the Human Genomic Variation Database <http:www.genome.med.kyoto-u.ac.jp/SnpDB/> into 'generic DB file' of the ANNOVAR software package <http://www.openbioinfomatics.org/annovar/> . Hgvd2BED generates the 4-column BED file.
 
 ## ChangeLog
+* **UPDATE** (v 0.1.10) HGVD v2.10 has two loci that lack alternetive allele counts at multiple allelic sites at chr2:69093728C>A,G and chr7:1937816C>A,T (both are non-passed sites). Undetermined allele counts are now handled as zero.
 * **NEW but beta** hgvd2vcf.rb converts HGVDr1.42 data into a VCF file. DO NOT USE FOR IMPORTANT PROJECTS. 
 * **UPDATE** Supports release version 1.42 (2014.06.17). This release contains new three columns (RR/RA/AA). Newly added loci in this release may have just "." in the filter column. Hgvd2annovar.rb and Hgvd2BED.rb handle them as same as "PASS". 
 

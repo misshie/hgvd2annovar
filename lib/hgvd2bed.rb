@@ -2,7 +2,7 @@ require "optparse"
 
 class Hgvd2Bed
 
-  VERSION = "0.1.8"
+  VERSION = "0.1.10"
   HGVD =
     Struct.new( :chr, :position, :rsID_freq,
                 :ref, :alt, :num_sample, :filter,
@@ -25,7 +25,8 @@ class Hgvd2Bed
   # To process the case that ALT consists of SNV and/or INDEL,
   # multiple alleles should be processed independently 
   def process(hgvd)
-    na_sum = hgvd.na.split(',').map{|x|Integer(x)}.inject(:+)
+    # ignoring one of alternative allele counts not found in a multi-allelic site
+    na_sum = hgvd.na.split(',').map{|x|x.to_i}.inject(:+)
     hgvd.alt.split(',').each_with_index do |alt,idx|
       hgvd2 = hgvd.dup
       hgvd2.alt = alt

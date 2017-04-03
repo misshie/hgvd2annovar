@@ -2,7 +2,7 @@ require "optparse"
 
 class Hgvd2Annovar
 
-  VERSION = "0.1.8"
+  VERSION = "0.1.10"
 
   HGVD =
     Struct.new( :chr, :position, :rsID_freq,
@@ -31,6 +31,11 @@ class Hgvd2Annovar
       hgvd2 = hgvd.dup
       hgvd2.alt = alt
       hgvd2.na = hgvd.na.split(',')[idx]
+      if hgvd2.na.nil? # broaken format: one of alternative allele counts is not found in a multi-allelic site
+        warn "Warning: handle one of alternative allele counts not found in a multi-allelic site as zero at:"
+        warn hgvd.inspect
+        hgvd2.na = 0
+      end
       hgvd2.nr = (Integer(hgvd.nr) + na_sum - Integer(hgvd2.na)).to_s 
       process_alt(hgvd2)
     end
